@@ -20,18 +20,24 @@ export class WeatherService {
     //     note this is another example of dependency injection: 
     constructor(private jsonp: Jsonp){}
 
-    getCurrentLocation(): [number,number]{
+    // modified to run only after the observable is returned
+    //     we do this by changing the return type to be an observable:
+    getCurrentLocation(): Observable<any> {
         // grab longitude/latitude if the geolocation is available:
-        if(navigator.geolocation){
-            navigator.geolocation.getCurrentPosition(pos => {
-                console.log("Position: ", pos.coords.latitude, ",", pos.coords.latitude); // ToDO: REMOVE
-                return [pos.coords.latitude, pos.coords.longitude];
-            },
-            err => console.error("Unable to get the position -", err));
+        if(navigator.geolocation) {
+            // create an observable getCurrentPosition can subscribe to:
+            return Observable.create(observer =>{
+                navigator.geolocation.getCurrentPosition(pos => {
+                    // the new piece of data from geo location...make it observable:
+                    observer.next(pos)
+                }),
+                err => {
+                    Observable.throw(err)
+                }
+            });
         }else{
             // triggered for old browsers:
-            console.error("Geolocation is not available!");
-            return[0,0]
+            return Observable.throw("Geolocation is not available");
         }
     }
     // create method to get data right at the moment of the request:

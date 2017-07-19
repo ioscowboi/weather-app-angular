@@ -13,14 +13,18 @@ var weather_service_1 = require('../service/weather.service');
 var WeatherComponent = (function () {
     // initialize a dependency injection:
     function WeatherComponent(service) {
+        var _this = this;
         this.service = service;
         // create instance of getCurrentLocation method:
-        this.service.getCurrentLocation();
-        // create a method to contain the json data:
-        // w an observable nothing will happen:
-        // this.service.getCurrentWeather(this.pos[0],this.pos[1])
-        this.service.getCurrentWeather(0, 0)
-            .subscribe(function (weather) { return console.log(weather); }, function (err) { return console.error(err); });
+        this.service.getCurrentLocation()
+            .subscribe(function (position) {
+            _this.pos = position;
+            // create a method to contain the json data:
+            // w an observable nothing will happen:
+            // promise:
+            _this.service.getCurrentWeather(_this.pos.coords.latitude, _this.pos.coords.longitude)
+                .subscribe(function (weather) { return console.log(weather); }, function (err) { return console.error(err); });
+        }, function (err) { return console.error(err); });
     }
     WeatherComponent = __decorate([
         core_1.Component({

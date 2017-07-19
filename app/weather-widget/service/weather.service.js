@@ -27,18 +27,25 @@ var WeatherService = (function () {
     function WeatherService(jsonp) {
         this.jsonp = jsonp;
     }
+    // modified to run only after the observable is returned
+    //     we do this by changing the return type to be an observable:
     WeatherService.prototype.getCurrentLocation = function () {
         // grab longitude/latitude if the geolocation is available:
         if (navigator.geolocation) {
-            navigator.geolocation.getCurrentPosition(function (pos) {
-                console.log("Position: ", pos.coords.latitude, ",", pos.coords.latitude); // ToDO: REMOVE
-                return [pos.coords.latitude, pos.coords.longitude];
-            }, function (err) { return console.error("Unable to get the position -", err); });
+            // create an observable getCurrentPosition can subscribe to:
+            return Observable_1.Observable.create(function (observer) {
+                navigator.geolocation.getCurrentPosition(function (pos) {
+                    // the new piece of data from geo location...make it observable:
+                    observer.next(pos);
+                }),
+                    function (err) {
+                        Observable_1.Observable.throw(err);
+                    };
+            });
         }
         else {
             // triggered for old browsers:
-            console.error("Geolocation is not available!");
-            return [0, 0];
+            return Observable_1.Observable.throw("Geolocation is not available");
         }
     };
     // create method to get data right at the moment of the request:
