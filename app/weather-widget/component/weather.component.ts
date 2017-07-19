@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, OnInit }      from '@angular/core';
 import { WeatherService } from '../service/weather.service';
-
+import { Weather }        from '../model/weather';
 @Component({
     moduleId: module.id,
     selector: 'weather-widget',
@@ -9,11 +9,23 @@ import { WeatherService } from '../service/weather.service';
     providers: [ WeatherService ]
 })
 
-export class WeatherComponent{
+// tell the class that it will be implementing OnInit:
+export class WeatherComponent implements OnInit {
     // create tuple (i.e. an ordered list) of lat and long:
     pos: Position;    
+
+    // create a new blank Weather object: 
+    weatherData = new Weather(null, null, null, null, null);
+
     // initialize a dependency injection:
-    constructor(private service: WeatherService){
+    constructor(private service: WeatherService){ }
+    
+    // built in method for OnInit:
+    ngOnInit(){
+        this.getCurrentLocation()
+    }
+    // seperate getCurrentLocation out into its own method:
+    getCurrentLocation(){
         // create instance of getCurrentLocation method:
         this.service.getCurrentLocation()
         // .subscribe will only run once getCurrentLocation is complete:
@@ -22,13 +34,25 @@ export class WeatherComponent{
                 // create a method to contain the json data:
                 // w an observable nothing will happen:
                 // promise:
-                this.service.getCurrentWeather(this.pos.coords.latitude,this.pos.coords.longitude)
-                // this.service.getCurrentWeather(0,0)
-                    // until you subscribe to the observable! :
-                    .subscribe(weather => console.log(weather), 
-                    err => console.error(err));
-
+                this.getCurrentWeather()
             },
+            err => console.error(err));
+    }
+    // seperate getCurrentWeather out into its own method:
+    getCurrentWeather(){
+        // create a method to contain the json data:
+        // w an observable nothing will happen:
+        // promise:
+        this.service.getCurrentWeather(this.pos.coords.latitude,this.pos.coords.longitude)
+            // until you subscribe to the observable! :
+            .subscribe(weather => {
+                this.weatherData.temp     = weather["currently"]["temperature"],
+                this.weatherData.summary  = weather["currently"]["summary"]
+                this.weatherData.wind     = weather["currently"]["windSpeed"],
+                this.weatherData.humidity = weather["currently"]["humidity"],
+                this.weatherData.icon     = weather["currently"]["icon"]
+                console.log("Weather: ", this.weatherData);  //remove soon!
+            }, 
             err => console.error(err));
     }
  }

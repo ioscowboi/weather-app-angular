@@ -10,11 +10,21 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var weather_service_1 = require('../service/weather.service');
+var weather_1 = require('../model/weather');
 var WeatherComponent = (function () {
     // initialize a dependency injection:
     function WeatherComponent(service) {
-        var _this = this;
         this.service = service;
+        // create a new blank Weather object: 
+        this.weatherData = new weather_1.Weather(null, null, null, null, null);
+    }
+    // built in method for OnInit:
+    WeatherComponent.prototype.ngOnInit = function () {
+        this.getCurrentLocation();
+    };
+    // seperate getCurrentLocation out into its own method:
+    WeatherComponent.prototype.getCurrentLocation = function () {
+        var _this = this;
         // create instance of getCurrentLocation method:
         this.service.getCurrentLocation()
             .subscribe(function (position) {
@@ -22,10 +32,25 @@ var WeatherComponent = (function () {
             // create a method to contain the json data:
             // w an observable nothing will happen:
             // promise:
-            _this.service.getCurrentWeather(_this.pos.coords.latitude, _this.pos.coords.longitude)
-                .subscribe(function (weather) { return console.log(weather); }, function (err) { return console.error(err); });
+            _this.getCurrentWeather();
         }, function (err) { return console.error(err); });
-    }
+    };
+    // seperate getCurrentWeather out into its own method:
+    WeatherComponent.prototype.getCurrentWeather = function () {
+        var _this = this;
+        // create a method to contain the json data:
+        // w an observable nothing will happen:
+        // promise:
+        this.service.getCurrentWeather(this.pos.coords.latitude, this.pos.coords.longitude)
+            .subscribe(function (weather) {
+            _this.weatherData.temp = weather["currently"]["temperature"],
+                _this.weatherData.summary = weather["currently"]["summary"];
+            _this.weatherData.wind = weather["currently"]["windSpeed"],
+                _this.weatherData.humidity = weather["currently"]["humidity"],
+                _this.weatherData.icon = weather["currently"]["icon"];
+            console.log("Weather: ", _this.weatherData); //remove soon!
+        }, function (err) { return console.error(err); });
+    };
     WeatherComponent = __decorate([
         core_1.Component({
             moduleId: module.id,
