@@ -4,7 +4,8 @@
             <p>Lincoln, NE</p>
         </div>
         <div class="col-xs-4 text-xs-right">
-            <h1>3&deg;</h1>
+            <!--display temperature from weatherData object  -->
+            <h1>{{ weatherData.temp }}&deg;</h1>
         </div>
     </div>
     <div class="card-block">
@@ -14,11 +15,11 @@
     <div class="card-footer">
         <div class="col-xs-5">
             <p>Wind:</p>
-            <p>19mph</p>
+            <p>{{ weatherData.wind}}mph</p>
         </div>
         <div class="col-xs-5 offset-xs-2">
             <p>Humidity</p>
-            <p>12%</p>
+            <p>{{ weatherData.humidity }}%</p>
         </div>
     </div>
 </div>
