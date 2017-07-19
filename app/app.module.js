@@ -10,6 +10,9 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
+// pull in Json protocol module to perform xhr requests from outside your domain
+//     use when ex:: your domain: yourdoman.com, location of data you need domain: woohoo.com
+var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var weather_component_1 = require('./weather-widget/component/weather.component');
 var AppModule = (function () {
@@ -17,7 +20,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule],
+            imports: [platform_browser_1.BrowserModule, http_1.JsonpModule],
             declarations: [app_component_1.AppComponent, weather_component_1.WeatherComponent],
             bootstrap: [app_component_1.AppComponent]
         }), 
