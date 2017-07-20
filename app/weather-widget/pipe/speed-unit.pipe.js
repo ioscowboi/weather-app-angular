@@ -18,11 +18,11 @@ var SpeedUnitPipe = (function () {
     SpeedUnitPipe.prototype.transform = function (speed, unitType) {
         // depends on what's passed in the parameters:
         switch (unitType) {
-            case "mph":
-                var miles = speed * 1.6;
-                return miles + "mph";
+            case "kph":
+                var miles = speed * 1.61;
+                return miles + "kph";
             default:
-                return speed + "kph";
+                return speed + "mph";
         }
     };
     SpeedUnitPipe = __decorate([

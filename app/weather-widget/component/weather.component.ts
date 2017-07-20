@@ -25,6 +25,8 @@ export class WeatherComponent implements OnInit {
     //         initialized. Why? How? 
     //                         the value is set by the weather api cass which overrides the default value below in the pipe transform:
     currentTempUnit = "fahrenheit";
+    // store the location of geolocation
+    currentLocation = "";
 
     // initialize a dependency injection:
     constructor(private service: WeatherService){ }
@@ -43,13 +45,14 @@ export class WeatherComponent implements OnInit {
                 // create a method to contain the json data:
                 // w an observable nothing will happen:
                 // promise:
-                this.getCurrentWeather()
+                this.getCurrentWeather();
+                this.getLocationName();
             },
             err => console.error(err));
     }
     // seperate getCurrentWeather out into its own method:
     getCurrentWeather(){
-        // create a method to contain the json data:
+        // create a method to contain the json data for the respective api call:
         // w an observable nothing will happen:
         // promise:
         this.service.getCurrentWeather(this.pos.coords.latitude,this.pos.coords.longitude)
@@ -63,5 +66,17 @@ export class WeatherComponent implements OnInit {
                 console.log("Weather: ", this.weatherData);  //remove soon!
             }, 
             err => console.error(err));
+    }
+    
+    // create method to store the current geolocation information:
+    getLocationName(){
+        // subscribe to the method getlocationname:
+        // pass in lat and long:
+        this.service.getLocationName(this.pos.coords.latitude, this.pos.coords.longitude)
+            .subscribe(location => {
+                console.log(location); //TODO: remove
+                this.currentLocation = location["results"][1]["address_components"][1]["short_name"] + ", " + location["results"][1]["address_components"][3]["short_name"]
+                console.log('Name: ', this.currentLocation );
+            });
     }
  }

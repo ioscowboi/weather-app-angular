@@ -11,11 +11,11 @@ export class SpeedUnitPipe implements PipeTransform {
     transform(speed: number, unitType: string){
         // depends on what's passed in the parameters:
         switch(unitType){
-            case "mph":
-                const miles = speed * 1.6;
-            return miles + "mph";
+            case "kph":
+                const miles = speed * 1.61;
+            return miles + "kph";
             default:
-            return speed + "kph";
+            return speed + "mph";
         }
     }
 }

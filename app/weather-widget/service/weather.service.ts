@@ -1,7 +1,8 @@
 // always create an import and a decorator for every service: 
 import { Injectable } from '@angular/core';
-// pull in Json protocol module for use with the weather service: 
-import { Jsonp } from '@angular/http';
+// pull in Json protocol module for use with the weather service:
+//  pull in the Http module so that we can use with the Google Geolocation api call:
+import { Jsonp, Http } from '@angular/http';
 
 // You'll use Rxjs library resources to monitor stream of external data from the api call (jsonp):
 //  only import what you need
@@ -18,8 +19,9 @@ import { FORECAST_KEY, FORECAST_ROOT, GOOGLE_KEY, GOOGLE_ROOT } from '../constan
 
 export class WeatherService { 
     // create an instance of the jsonp for injection in the weather service:
-    //     note this is another example of dependency injection: 
-    constructor(private jsonp: Jsonp){}
+    //     note this is another example of dependency injection:
+    //  create an instance of http for injection into the weather service so we can use it: 
+    constructor(private jsonp: Jsonp, private http: Http){}
 
     // modified to run only after the observable is returned
     //     we do this by changing the return type to be an observable:
@@ -30,7 +32,7 @@ export class WeatherService {
             return Observable.create(observer =>{
                 navigator.geolocation.getCurrentPosition(pos => {
                     // the new piece of data from geo location...make it observable:
-                    observer.next(pos)
+                    observer.next(pos);
                 }),
                 err => {
                     Observable.throw(err)
@@ -63,5 +65,21 @@ export class WeatherService {
             //     convert into json so the Observable can easily receive it:
             return Observable.throw(err.json());
         });
+    }
+
+    // http get request
+    //     pass in latitude and logitude for use in the api url string as query params:
+    getLocationName(lat: number, long: number): Observable<any> {
+        const url = GOOGLE_ROOT;
+        const queryParams = "?latlng=" + lat + "," + long + "&key=" GOOGLE_KEY;
+        
+        // notice that with Google Geolocation api you dont need the JSON request. 
+        // read up on CORS if you want to know what is going on with this:
+        return this.http.get(url + queryParams)
+            .map(loc => loc.json())
+            .catch(err => {
+                console.error("Unable to get location -", err);
+                return Observable.throw(err);
+            });
     }
 }

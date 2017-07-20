@@ -24,6 +24,8 @@ var WeatherComponent = (function () {
         //         initialized. Why? How? 
         //                         the value is set by the weather api cass which overrides the default value below in the pipe transform:
         this.currentTempUnit = "fahrenheit";
+        // store the location of geolocation
+        this.currentLocation = "";
     }
     // built in method for OnInit:
     WeatherComponent.prototype.ngOnInit = function () {
@@ -40,12 +42,13 @@ var WeatherComponent = (function () {
             // w an observable nothing will happen:
             // promise:
             _this.getCurrentWeather();
+            _this.getLocationName();
         }, function (err) { return console.error(err); });
     };
     // seperate getCurrentWeather out into its own method:
     WeatherComponent.prototype.getCurrentWeather = function () {
         var _this = this;
-        // create a method to contain the json data:
+        // create a method to contain the json data for the respective api call:
         // w an observable nothing will happen:
         // promise:
         this.service.getCurrentWeather(this.pos.coords.latitude, this.pos.coords.longitude)
@@ -57,6 +60,18 @@ var WeatherComponent = (function () {
                 _this.weatherData.icon = weather["currently"]["icon"];
             console.log("Weather: ", _this.weatherData); //remove soon!
         }, function (err) { return console.error(err); });
+    };
+    // create method to store the current geolocation information:
+    WeatherComponent.prototype.getLocationName = function () {
+        var _this = this;
+        // subscribe to the method getlocationname:
+        // pass in lat and long:
+        this.service.getLocationName(this.pos.coords.latitude, this.pos.coords.longitude)
+            .subscribe(function (location) {
+            console.log(location); //TODO: remove
+            _this.currentLocation = location["results"][1]["address_components"][1]["short_name"] + ", " + location["results"][1]["address_components"][3]["short_name"];
+            console.log('Name: ', _this.currentLocation);
+        });
     };
     WeatherComponent = __decorate([
         core_1.Component({

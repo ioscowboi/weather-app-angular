@@ -12,6 +12,8 @@ var core_1 = require('@angular/core');
 var platform_browser_1 = require('@angular/platform-browser');
 // pull in Json protocol module to perform xhr requests from outside your domain
 //     use when ex:: your domain: yourdoman.com, location of data you need domain: woohoo.com
+// pull in HttpModule for the Google Geolocation api
+//     note: this is the same module youll use for any http get requests:
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var weather_component_1 = require('./weather-widget/component/weather.component');
@@ -24,7 +26,7 @@ var AppModule = (function () {
     }
     AppModule = __decorate([
         core_1.NgModule({
-            imports: [platform_browser_1.BrowserModule, http_1.JsonpModule],
+            imports: [platform_browser_1.BrowserModule, http_1.JsonpModule, http_1.HttpModule],
             declarations: [app_component_1.AppComponent, weather_component_1.WeatherComponent, speed_unit_pipe_1.SpeedUnitPipe, temp_unit_pipe_1.TempUnitPipe],
             bootstrap: [app_component_1.AppComponent]
         }), 

@@ -10,7 +10,8 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 };
 // always create an import and a decorator for every service: 
 var core_1 = require('@angular/core');
-// pull in Json protocol module for use with the weather service: 
+// pull in Json protocol module for use with the weather service:
+//  pull in the Http module so that we can use with the Google Geolocation api call:
 var http_1 = require('@angular/http');
 // You'll use Rxjs library resources to monitor stream of external data from the api call (jsonp):
 //  only import what you need
@@ -24,9 +25,11 @@ var constants_1 = require('../constants/constants');
 // injectable allows data to be passed in to the weather.service (angular creates the rules for it when it's instantiated):
 var WeatherService = (function () {
     // create an instance of the jsonp for injection in the weather service:
-    //     note this is another example of dependency injection: 
-    function WeatherService(jsonp) {
+    //     note this is another example of dependency injection:
+    //  create an instance of http for injection into the weather service so we can use it: 
+    function WeatherService(jsonp, http) {
         this.jsonp = jsonp;
+        this.http = http;
     }
     // modified to run only after the observable is returned
     //     we do this by changing the return type to be an observable:
@@ -67,9 +70,23 @@ var WeatherService = (function () {
             return Observable_1.Observable.throw(err.json());
         });
     };
+    // http get request
+    //     pass in latitude and logitude for use in the api url string as query params:
+    WeatherService.prototype.getLocationName = function (lat, long) {
+        var url = constants_1.GOOGLE_ROOT;
+        var queryParams = "?latlng=" + lat + "," + long + "&key=", GOOGLE_KEY;
+        // notice that with Google Geolocation api you dont need the JSON request. 
+        // read up on CORS if you want to know what is going on with this:
+        return this.http.get(url + queryParams)
+            .map(function (loc) { return loc.json(); })
+            .catch(function (err) {
+            console.error("Unable to get location -", err);
+            return Observable_1.Observable.throw(err);
+        });
+    };
     WeatherService = __decorate([
         core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Jsonp])
+        __metadata('design:paramtypes', [http_1.Jsonp, http_1.Http])
     ], WeatherService);
     return WeatherService;
 }());
