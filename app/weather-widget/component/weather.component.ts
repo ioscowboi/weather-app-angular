@@ -79,4 +79,25 @@ export class WeatherComponent implements OnInit {
                 console.log('Name: ', this.currentLocation );
             });
     }
+
+    toggleUnits(){
+        this.toggleTempUnits();
+        this.toggleSpeedUnits();
+
+    }
+
+    toggleTempUnits(){
+        if(this.currentTempUnit == "fahrenheit"){
+            this.currentTempUnit = "celsius";
+        } else {
+            this.currentTempUnit = "fahrenheit";
+        }
+    }
+    toggleSpeedUnits(){
+        if(this.currentSpeedUnit == "mph"){
+            this.currentSpeedUnit = "kph";
+        } else {
+            this.currentSpeedUnit = "mph";
+        };        
+    }
  }

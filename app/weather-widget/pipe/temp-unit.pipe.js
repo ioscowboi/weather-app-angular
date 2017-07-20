@@ -13,7 +13,7 @@ var TempUnitPipe = (function () {
     function TempUnitPipe() {
     }
     TempUnitPipe.prototype.transform = function (temp, unitType) {
-        if (unitType == "celcius") {
+        if (unitType == "celsius") {
             var celsius = (temp - 32) * 0.5556;
             return celsius;
         }

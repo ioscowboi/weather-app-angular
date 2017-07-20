@@ -19,10 +19,13 @@ var SpeedUnitPipe = (function () {
         // depends on what's passed in the parameters:
         switch (unitType) {
             case "kph":
-                var miles = speed * 1.61;
-                return miles + "kph";
+                var miles = 
+                // trim the decimal places down to 0 (or any number of decimal places)
+                Number(speed * 1.61).toFixed(0);
+                return miles + " kph";
             default:
-                return speed + "mph";
+                var milesPH = Number(speed).toFixed(0);
+                return milesPH + " mph";
         }
     };
     SpeedUnitPipe = __decorate([

@@ -12,10 +12,13 @@ export class SpeedUnitPipe implements PipeTransform {
         // depends on what's passed in the parameters:
         switch(unitType){
             case "kph":
-                const miles = speed * 1.61;
-            return miles + "kph";
+                const miles = 
+                // trim the decimal places down to 0 (or any number of decimal places)
+                Number(speed * 1.61).toFixed(0);
+            return miles + " kph";
             default:
-            return speed + "mph";
+                const milesPH = Number(speed).toFixed(0);
+            return milesPH + " mph";
         }
     }
 }
