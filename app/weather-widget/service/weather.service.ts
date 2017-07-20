@@ -10,7 +10,8 @@ import 'rxjs/add/operator/map';
 import 'rxjs/add/operator/catch';
 
 // pull in your api credentials so that you can use them in the weather service: 
-import { FORECAST_KEY, FORECAST_ROOT } from '../constants/constants';
+// add Google Geocoding credentials:
+import { FORECAST_KEY, FORECAST_ROOT, GOOGLE_KEY, GOOGLE_ROOT } from '../constants/constants';
 // decorator:
 // injectable allows data to be passed in to the weather.service (angular creates the rules for it when it's instantiated):
 @Injectable()

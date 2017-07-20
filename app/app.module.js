@@ -15,13 +15,17 @@ var platform_browser_1 = require('@angular/platform-browser');
 var http_1 = require('@angular/http');
 var app_component_1 = require('./app.component');
 var weather_component_1 = require('./weather-widget/component/weather.component');
+// import speed unit pipe so we can use the pipe in the weather-widget component:
+// add to ngmodule as well: 
+var speed_unit_pipe_1 = require('./weather-widget/pipe/speed-unit.pipe');
+var temp_unit_pipe_1 = require('./weather-widget/pipe/temp-unit.pipe');
 var AppModule = (function () {
     function AppModule() {
     }
     AppModule = __decorate([
         core_1.NgModule({
             imports: [platform_browser_1.BrowserModule, http_1.JsonpModule],
-            declarations: [app_component_1.AppComponent, weather_component_1.WeatherComponent],
+            declarations: [app_component_1.AppComponent, weather_component_1.WeatherComponent, speed_unit_pipe_1.SpeedUnitPipe, temp_unit_pipe_1.TempUnitPipe],
             bootstrap: [app_component_1.AppComponent]
         }), 
         __metadata('design:paramtypes', [])

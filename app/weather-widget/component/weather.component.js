@@ -17,6 +17,13 @@ var WeatherComponent = (function () {
         this.service = service;
         // create a new blank Weather object: 
         this.weatherData = new weather_1.Weather(null, null, null, null, null);
+        // initialize the speed unit parameter:
+        this.currentSpeedUnit = "mph";
+        // initialize the temperature unit parameter:
+        //     note: this is just a default value, we could set this to anything, just setting it to the default so that it's
+        //         initialized. Why? How? 
+        //                         the value is set by the weather api cass which overrides the default value below in the pipe transform:
+        this.currentTempUnit = "fahrenheit";
     }
     // built in method for OnInit:
     WeatherComponent.prototype.ngOnInit = function () {

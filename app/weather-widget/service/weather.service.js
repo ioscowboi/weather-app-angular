@@ -18,6 +18,7 @@ var Observable_1 = require('rxjs/Observable');
 require('rxjs/add/operator/map');
 require('rxjs/add/operator/catch');
 // pull in your api credentials so that you can use them in the weather service: 
+// add Google Geocoding credentials:
 var constants_1 = require('../constants/constants');
 // decorator:
 // injectable allows data to be passed in to the weather.service (angular creates the rules for it when it's instantiated):

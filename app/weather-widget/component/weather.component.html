@@ -6,7 +6,8 @@
         <div class="col-xs-4 text-xs-right">
             <!--display temperature from weatherData object  -->
             <!-- use pre-built number pipe to remove the decimal points:  -->
-            <h1>{{ weatherData.temp | number: '.0-0' }}&deg;</h1>
+            <!-- multi-pipe chain (yes you can chain pipes but order matters )  -->
+            <h1>{{ weatherData.temp | tempUnit: currentTempUnit | number: '.0-0' }}&deg;</h1>
         </div>
     </div>
     <div class="card-block">
@@ -16,7 +17,7 @@
     <div class="card-footer">
         <div class="col-xs-5">
             <p>Wind:</p>
-            <p>{{ weatherData.wind}}mph</p>
+            <p>{{ weatherData.wind | speedUnit: currentSpeedUnit }}</p>
         </div>
         <div class="col-xs-5 offset-xs-2">
             <p>Humidity</p>
