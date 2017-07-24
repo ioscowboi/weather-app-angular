@@ -30,6 +30,7 @@ var WeatherComponent = (function () {
         this.currentLocation = "";
         // no ts definition file so you'll need to create a definition so that ts has a clue about the js skycons libray:
         this.icons = new Skycons();
+        this.dataReceived = false;
     }
     // built in method for OnInit:
     WeatherComponent.prototype.ngOnInit = function () {
@@ -65,6 +66,9 @@ var WeatherComponent = (function () {
             console.log("Weather: ", _this.weatherData); //remove soon!
             // call the setIcon method: 
             _this.setIcon();
+            // datareceived is changed to true once we have all the data
+            //     see class binding in the template html file:
+            _this.dataReceived = true;
         }, function (err) { return console.error(err); });
     };
     // create method to store the current geolocation information:

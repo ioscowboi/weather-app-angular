@@ -54,4 +54,4 @@ export const WEATHER_COLORS = {
         'color': '#000'
     }
       
-}
+};

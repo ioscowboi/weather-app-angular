@@ -34,6 +34,7 @@ export class WeatherComponent implements OnInit {
     // no ts definition file so you'll need to create a definition so that ts has a clue about the js skycons libray:
     icons = new Skycons();
 
+    dataReceived = false;
 
     // initialize a dependency injection:
     constructor(private service: WeatherService){ }
@@ -73,6 +74,9 @@ export class WeatherComponent implements OnInit {
                 console.log("Weather: ", this.weatherData);  //remove soon!
                 // call the setIcon method: 
                 this.setIcon();
+                // datareceived is changed to true once we have all the data
+                //     see class binding in the template html file:
+                this.dataReceived = true;
             }, 
             err => console.error(err));
     }
