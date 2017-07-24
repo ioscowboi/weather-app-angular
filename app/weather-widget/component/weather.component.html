@@ -1,4 +1,4 @@
-<div class="card" (click)="toggleUnits()">
+<div class="card" (click)="toggleUnits()" [ngStyle]="setStyles()">
     <div class="card-header">
         <div class="col-xs-8">
             <p>{{ currentLocation }}</p>
@@ -11,7 +11,7 @@
         </div>
     </div>
     <div class="card-block">
-        <h1>45</h1>
+        <canvas id="icon"></canvas>
         <p>Rain</p>
     </div>
     <div class="card-footer">

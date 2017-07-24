@@ -1,6 +1,8 @@
+// module loader file:
 (function(global) {
     System.config({
         paths: {
+            // location of the npm modules:
             'npm:': 'node_modules/'
         },
         map: {

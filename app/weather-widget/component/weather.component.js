@@ -12,6 +12,7 @@ Object.defineProperty(exports, "__esModule", { value: true });
 var core_1 = require("@angular/core");
 var weather_service_1 = require("../service/weather.service");
 var weather_1 = require("../model/weather");
+var constants_1 = require("../constants/constants");
 var WeatherComponent = (function () {
     // initialize a dependency injection:
     function WeatherComponent(service) {
@@ -27,6 +28,8 @@ var WeatherComponent = (function () {
         this.currentTempUnit = "fahrenheit";
         // store the location of geolocation
         this.currentLocation = "";
+        // no ts definition file so you'll need to create a definition so that ts has a clue about the js skycons libray:
+        this.icons = new Skycons();
     }
     // built in method for OnInit:
     WeatherComponent.prototype.ngOnInit = function () {
@@ -60,6 +63,8 @@ var WeatherComponent = (function () {
                 _this.weatherData.humidity = weather["currently"]["humidity"],
                 _this.weatherData.icon = weather["currently"]["icon"];
             console.log("Weather: ", _this.weatherData); //remove soon!
+            // call the setIcon method: 
+            _this.setIcon();
         }, function (err) { return console.error(err); });
     };
     // create method to store the current geolocation information:
@@ -94,6 +99,25 @@ var WeatherComponent = (function () {
             this.currentSpeedUnit = "mph";
         }
         ;
+    };
+    WeatherComponent.prototype.setIcon = function () {
+        // display whatever icon matches the api call at that time: 
+        this.icons.add("icon", this.weatherData.icon);
+        // animate the icon once it's loaded:
+        this.icons.play();
+    };
+    // call this to utilize styles based on api call:
+    WeatherComponent.prototype.setStyles = function () {
+        // display api based styles if an api object exists, otherwise display default styles:
+        if (this.weatherData.icon) {
+            // match text color to icon color: 
+            this.icons.color = constants_1.WEATHER_COLORS[this.weatherData.icon]["color"];
+            return constants_1.WEATHER_COLORS[this.weatherData.icon];
+        }
+        else {
+            this.icons.color = constants_1.WEATHER_COLORS["default"]["color"];
+            return constants_1.WEATHER_COLORS["default"];
+        }
     };
     WeatherComponent = __decorate([
         core_1.Component({

@@ -1,6 +1,11 @@
 import { Component, OnInit }      from '@angular/core';
 import { WeatherService } from '../service/weather.service';
 import { Weather }        from '../model/weather';
+
+import { WEATHER_COLORS } from '../constants/constants';
+// to stop IDE from complaining about the skycons library: 
+declare var Skycons: any;
+
 @Component({
     moduleId: module.id,
     selector: 'weather-widget',
@@ -13,10 +18,8 @@ import { Weather }        from '../model/weather';
 export class WeatherComponent implements OnInit {
     // create tuple (i.e. an ordered list) of lat and long:
     pos: Position;    
-
     // create a new blank Weather object: 
-    weatherData = new Weather(null, null, null, null, null);
-    
+    weatherData = new Weather(null, null, null, null, null);    
     // initialize the speed unit parameter:
     currentSpeedUnit = "mph";
 
@@ -27,6 +30,10 @@ export class WeatherComponent implements OnInit {
     currentTempUnit = "fahrenheit";
     // store the location of geolocation
     currentLocation = "";
+
+    // no ts definition file so you'll need to create a definition so that ts has a clue about the js skycons libray:
+    icons = new Skycons();
+
 
     // initialize a dependency injection:
     constructor(private service: WeatherService){ }
@@ -64,6 +71,8 @@ export class WeatherComponent implements OnInit {
                 this.weatherData.humidity = weather["currently"]["humidity"],
                 this.weatherData.icon     = weather["currently"]["icon"]
                 console.log("Weather: ", this.weatherData);  //remove soon!
+                // call the setIcon method: 
+                this.setIcon();
             }, 
             err => console.error(err));
     }
@@ -99,5 +108,25 @@ export class WeatherComponent implements OnInit {
         } else {
             this.currentSpeedUnit = "mph";
         };        
+    }
+
+    setIcon(){
+        // display whatever icon matches the api call at that time: 
+        this.icons.add("icon", this.weatherData.icon);
+        // animate the icon once it's loaded:
+        this.icons.play();
+    }
+
+    // call this to utilize styles based on api call:
+    setStyles(): Object {
+        // display api based styles if an api object exists, otherwise display default styles:
+        if(this.weatherData.icon){
+            // match text color to icon color: 
+            this.icons.color = WEATHER_COLORS[this.weatherData.icon]["color"];
+            return WEATHER_COLORS[this.weatherData.icon];
+        } else {
+            this.icons.color = WEATHER_COLORS["default"]["color"];
+            return WEATHER_COLORS["default"];
+        }
     }
  }
