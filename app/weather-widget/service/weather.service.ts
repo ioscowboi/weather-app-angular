@@ -71,7 +71,7 @@ export class WeatherService {
     //     pass in latitude and logitude for use in the api url string as query params:
     getLocationName(lat: number, long: number): Observable<any> {
         const url = GOOGLE_ROOT;
-        const queryParams = "?latlng=" + lat + "," + long + "&key=" GOOGLE_KEY;
+        const queryParams = "?latlng=" + lat + "," + long + "&key=" + GOOGLE_KEY;
         
         // notice that with Google Geolocation api you dont need the JSON request. 
         // read up on CORS if you want to know what is going on with this:

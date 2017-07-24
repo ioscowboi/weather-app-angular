@@ -8,9 +8,10 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
-var core_1 = require('@angular/core');
-var weather_service_1 = require('../service/weather.service');
-var weather_1 = require('../model/weather');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var weather_service_1 = require("../service/weather.service");
+var weather_1 = require("../model/weather");
 var WeatherComponent = (function () {
     // initialize a dependency injection:
     function WeatherComponent(service) {
@@ -101,8 +102,10 @@ var WeatherComponent = (function () {
             templateUrl: 'weather.component.html',
             styleUrls: ['weather.component.css'],
             providers: [weather_service_1.WeatherService]
-        }), 
-        __metadata('design:paramtypes', [weather_service_1.WeatherService])
+        })
+        // tell the class that it will be implementing OnInit:
+        ,
+        __metadata("design:paramtypes", [weather_service_1.WeatherService])
     ], WeatherComponent);
     return WeatherComponent;
 }());

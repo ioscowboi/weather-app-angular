@@ -8,19 +8,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+Object.defineProperty(exports, "__esModule", { value: true });
 // always create an import and a decorator for every service: 
-var core_1 = require('@angular/core');
+var core_1 = require("@angular/core");
 // pull in Json protocol module for use with the weather service:
 //  pull in the Http module so that we can use with the Google Geolocation api call:
-var http_1 = require('@angular/http');
+var http_1 = require("@angular/http");
 // You'll use Rxjs library resources to monitor stream of external data from the api call (jsonp):
 //  only import what you need
-var Observable_1 = require('rxjs/Observable');
-require('rxjs/add/operator/map');
-require('rxjs/add/operator/catch');
+var Observable_1 = require("rxjs/Observable");
+require("rxjs/add/operator/map");
+require("rxjs/add/operator/catch");
 // pull in your api credentials so that you can use them in the weather service: 
 // add Google Geocoding credentials:
-var constants_1 = require('../constants/constants');
+var constants_1 = require("../constants/constants");
 // decorator:
 // injectable allows data to be passed in to the weather.service (angular creates the rules for it when it's instantiated):
 var WeatherService = (function () {
@@ -74,7 +75,7 @@ var WeatherService = (function () {
     //     pass in latitude and logitude for use in the api url string as query params:
     WeatherService.prototype.getLocationName = function (lat, long) {
         var url = constants_1.GOOGLE_ROOT;
-        var queryParams = "?latlng=" + lat + "," + long + "&key=", GOOGLE_KEY;
+        var queryParams = "?latlng=" + lat + "," + long + "&key=" + constants_1.GOOGLE_KEY;
         // notice that with Google Geolocation api you dont need the JSON request. 
         // read up on CORS if you want to know what is going on with this:
         return this.http.get(url + queryParams)
@@ -85,8 +86,8 @@ var WeatherService = (function () {
         });
     };
     WeatherService = __decorate([
-        core_1.Injectable(), 
-        __metadata('design:paramtypes', [http_1.Jsonp, http_1.Http])
+        core_1.Injectable(),
+        __metadata("design:paramtypes", [http_1.Jsonp, http_1.Http])
     ], WeatherService);
     return WeatherService;
 }());

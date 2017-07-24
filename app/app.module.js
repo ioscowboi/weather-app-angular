@@ -5,22 +5,20 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-var core_1 = require('@angular/core');
-var platform_browser_1 = require('@angular/platform-browser');
+Object.defineProperty(exports, "__esModule", { value: true });
+var core_1 = require("@angular/core");
+var platform_browser_1 = require("@angular/platform-browser");
 // pull in Json protocol module to perform xhr requests from outside your domain
 //     use when ex:: your domain: yourdoman.com, location of data you need domain: woohoo.com
 // pull in HttpModule for the Google Geolocation api
 //     note: this is the same module youll use for any http get requests:
-var http_1 = require('@angular/http');
-var app_component_1 = require('./app.component');
-var weather_component_1 = require('./weather-widget/component/weather.component');
+var http_1 = require("@angular/http");
+var app_component_1 = require("./app.component");
+var weather_component_1 = require("./weather-widget/component/weather.component");
 // import speed unit pipe so we can use the pipe in the weather-widget component:
 // add to ngmodule as well: 
-var speed_unit_pipe_1 = require('./weather-widget/pipe/speed-unit.pipe');
-var temp_unit_pipe_1 = require('./weather-widget/pipe/temp-unit.pipe');
+var speed_unit_pipe_1 = require("./weather-widget/pipe/speed-unit.pipe");
+var temp_unit_pipe_1 = require("./weather-widget/pipe/temp-unit.pipe");
 var AppModule = (function () {
     function AppModule() {
     }
@@ -29,8 +27,7 @@ var AppModule = (function () {
             imports: [platform_browser_1.BrowserModule, http_1.JsonpModule, http_1.HttpModule],
             declarations: [app_component_1.AppComponent, weather_component_1.WeatherComponent, speed_unit_pipe_1.SpeedUnitPipe, temp_unit_pipe_1.TempUnitPipe],
             bootstrap: [app_component_1.AppComponent]
-        }), 
-        __metadata('design:paramtypes', [])
+        })
     ], AppModule);
     return AppModule;
 }());

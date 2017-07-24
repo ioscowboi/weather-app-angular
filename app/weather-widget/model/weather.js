@@ -1,4 +1,5 @@
 "use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
 var Weather = (function () {
     function Weather(temp, summary, wind, humidity, 
         // which icon should we use? A: base it on the weather data: 
