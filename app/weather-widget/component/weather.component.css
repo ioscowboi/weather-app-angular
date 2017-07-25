@@ -1,5 +1,9 @@
 .card {
-  box-shadow: 2px 12px 36px 4px rgba(0, 0, 0, 0.24); }
+  box-shadow: 2px 12px 36px 4px rgba(0, 0, 0, 0.24);
+  transition: background-color .5s ease;
+  cursor: pointer; }
+  .card #location-icon {
+    padding-right: .5rem; }
 
 .card, .card-header, .card-footer {
   border: none;
@@ -9,8 +13,30 @@
 .card-header, .card-footer {
   padding: 1rem .5rem; }
 
+#location-wrapper {
+  font-size: 1.1rem; }
+
+.card-footer {
+  padding-bottom: .5 rem; }
+  .card-footer #helper-row {
+    padding-top: .5rem; }
+  .card-footer #detail-row {
+    font-size: .8rem; }
+
 .card-block {
-  padding: 3rem; }
+  padding: 1.5rem 0; }
+  .card-block canvas {
+    max-width: 250px;
+    margin-bottom: 1rem; }
+  .card-block #indicator {
+    height: 165px;
+    position: relative; }
+    .card-block #indicator i {
+      position: absolute;
+      top: 50%;
+      left: 50%;
+      width: 50%;
+      margin: 15% 0 0 -25%; }
 
 .card-block, .card-footer {
   text-align: center; }
@@ -18,5 +44,7 @@
 p {
   margin: .2rem;
   text-transform: uppercase; }
+  p.unit-label {
+    text-transform: none; }
 
 /*# sourceMappingURL=weather.component.css.map */

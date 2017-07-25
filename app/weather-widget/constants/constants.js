@@ -1,5 +1,4 @@
 "use strict";
-Object.defineProperty(exports, "__esModule", { value: true });
 exports.FORECAST_KEY = "69f782e21de3b9af638834b944133e28";
 exports.FORECAST_ROOT = "https://api.darksky.net/forecast/";
 // google geocoding api key: 
@@ -49,7 +48,7 @@ exports.WEATHER_COLORS = {
     },
     'partly-cloudy-night': {
         'background-color': '#34495E',
-        'color': '#000'
+        'color': '#FFF'
     }
 };
 //# sourceMappingURL=constants.js.map
